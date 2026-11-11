@@ -6,6 +6,18 @@ const Statistics = ({ good, neutral, bad }) => {
   const average = (good - bad) / all;
   const positive = (good / all) * 100;
 
+  // Change application to display statistics only once feedback has been gathered (1.9)
+  if (all === 0) {
+    return (
+      <div>
+        <h1>statistics</h1>
+        <div>
+          <p>No feedback given</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <h1>statistics</h1>
@@ -29,11 +41,6 @@ const App = () => {
   const handleGoodClick = () => setGood(good + 1);
   const handleNeutralClick = () => setNeutral(neutral + 1);
   const handleBadClick = () => setBad(bad + 1);
-
-  // derived statistics (1.7): computed from state on every render
-  // const all = good + neutral + bad;
-  // const average = (good - bad) / all;
-  // const positive = (good / all) * 100;
 
   return (
     <div>

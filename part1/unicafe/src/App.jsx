@@ -1,5 +1,24 @@
 import { useState } from "react";
 
+// display Statistics is extracted into its own component (1.8)
+const Statistics = ({ good, neutral, bad }) => {
+  const all = good + neutral + bad;
+  const average = (good - bad) / all;
+  const positive = (good / all) * 100;
+
+  return (
+    <div>
+      <h1>statistics</h1>
+      <p>good {good}</p>
+      <p>neutral {neutral}</p>
+      <p>bad {bad}</p>
+      <p>all {all}</p>
+      <p>average {average}</p>
+      <p>positive {positive} %</p>
+    </div>
+  );
+};
+
 const App = () => {
   // save clicks of each button to its own state
   const [good, setGood] = useState(0);
@@ -12,9 +31,9 @@ const App = () => {
   const handleBadClick = () => setBad(bad + 1);
 
   // derived statistics (1.7): computed from state on every render
-  const all = good + neutral + bad;
-  const average = (good - bad) / all;
-  const positive = (good / all) * 100;
+  // const all = good + neutral + bad;
+  // const average = (good - bad) / all;
+  // const positive = (good / all) * 100;
 
   return (
     <div>
@@ -24,13 +43,7 @@ const App = () => {
         <button onClick={handleNeutralClick}>neutral</button>
         <button onClick={handleBadClick}>bad</button>
       </div>
-      <h1>statistics</h1>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {all}</p>
-      <p>average {average}</p>
-      <p>positive {positive} %</p>
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   );
 };
